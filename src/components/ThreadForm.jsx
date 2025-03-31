@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./styles/ThreadForm.css";
 
 export default function ThreadForm() {
   const [title, setTitle] = useState("");
@@ -19,18 +20,23 @@ export default function ThreadForm() {
   };
 
   return (
-    <div className="form-container">
-      <h2>スレッドを新規作成</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="スレッドタイトル"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <button type="submit">作成</button>
-      </form>
-    </div>
+    <div className="create-thread-page">
+  <header className="create-thread-header">掲示板</header>
+
+  <div className="create-thread-container">
+    <h2>スレッド新規作成</h2>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="スレッドタイトル"
+        required
+      />
+      <Link to="/" className="back-link">Topに戻る</Link>
+      <button type="submit">作成</button>
+    </form>
+  </div>
+</div>
   );
 }

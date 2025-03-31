@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "../App.css";
+import "./styles/ThreadList.css";
 
 //投稿一覧データー
 export default function ThreadList() {
@@ -20,23 +20,23 @@ export default function ThreadList() {
 
   return (
     <div className="page">
-  <header className="header">
-    <h1>掲示板</h1>
-  </header>
-
-  <main className="main">
+      <header className="header">
+        <h1>掲示板</h1>
+      </header>
+  
+      <main className="main">
         <div className="button-wrapper">
           <Link to="/threads/new">
             <button className="create-button">＋ 新規スレッド作成</button>
           </Link>
         </div>
-
+  
         <h2 className="title">新着スレッド</h2>
         <div className="thread-list">
           {threads.map((thread) => (
-            <div key={thread.id} className="thread-card">
+            <Link key={thread.id} to={`/threads/${thread.id}`} className="thread-card">
               {thread.title}
-            </div>
+            </Link>
           ))}
         </div>
       </main>

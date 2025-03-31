@@ -1,0 +1,47 @@
+/* スレッド一覧画面のスタイル */
+
+.page {
+    background-color: #e5e5e5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .header {
+    background-color: #4fd1c5;
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+  }
+  
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .thread-list {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .thread-card {
+    display: block;
+    background: white;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    color: inherit;
+  }
