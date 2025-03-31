@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "../App.css";
 
 //投稿一覧データー
 export default function ThreadList() {
@@ -17,16 +18,21 @@ export default function ThreadList() {
   }, []);
 
   return (
-    <div>
-      <h2>📋 投稿一覧</h2>
-      <ul>
-        {threads.map((thread) => (
-          <li key={thread.id}>
-            <strong>{thread.title}</strong>
-            <p>{thread.description}</p>
-          </li>
-        ))}
-      </ul>
+    <div className="page">
+  <header className="header">
+    <h1>掲示板</h1>
+  </header>
+
+  <main className="main">
+    <h2 className="title">新着スレッド</h2>
+    <div className="thread-list">
+      {threads.map((thread) => (
+        <div key={thread.id} className="thread-card">
+          {thread.title}
+        </div>
+      ))}
     </div>
+  </main>
+</div>
   );
 }
