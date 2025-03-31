@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 
@@ -24,15 +25,21 @@ export default function ThreadList() {
   </header>
 
   <main className="main">
-    <h2 className="title">新着スレッド</h2>
-    <div className="thread-list">
-      {threads.map((thread) => (
-        <div key={thread.id} className="thread-card">
-          {thread.title}
+        <div className="button-wrapper">
+          <Link to="/threads/new">
+            <button className="create-button">＋ 新規スレッド作成</button>
+          </Link>
         </div>
-      ))}
+
+        <h2 className="title">新着スレッド</h2>
+        <div className="thread-list">
+          {threads.map((thread) => (
+            <div key={thread.id} className="thread-card">
+              {thread.title}
+            </div>
+          ))}
+        </div>
+      </main>
     </div>
-  </main>
-</div>
   );
 }

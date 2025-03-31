@@ -2,7 +2,7 @@ import ThreadList from "./components/ThreadList";
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <ThreadList />
     </div>
   );
