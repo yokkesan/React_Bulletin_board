@@ -9,7 +9,7 @@ export default function PostList() {
   const [newPost, setNewPost] = useState("");
   const [threadTitle, setThreadTitle] = useState("");
 
-  // 投稿一覧を取得
+//   thread_id に紐づいた投稿のみ取得
   const fetchPosts = () => {
     axios
       .get(`https://railway.bulletinboard.techtrain.dev/threads/${thread_id}/posts`)
@@ -21,11 +21,9 @@ export default function PostList() {
       });
   };
 
-  // useEffectで投稿一覧とタイトル取得
+  //スレッドタイトルを表示
   useEffect(() => {
     fetchPosts();
-
-    // スレッド一覧から対応するタイトルを探す
     axios
       .get("https://railway.bulletinboard.techtrain.dev/threads")
       .then((res) => {
