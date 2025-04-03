@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./styles/PostList.css";
+import { ENDPOINTS } from "../const";
 
 export default function PostList() {
   const { thread_id } = useParams();
+  const location = useLocation();
+  const titleFromState = location.state?.title;
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState("");
-  const [threadTitle, setThreadTitle] = useState("");
+  const [threadTitle, setThreadTitle] = useState(titleFromState || "");
 
-//   thread_id に紐づいた投稿のみ取得
+  // 投稿取得
   const fetchPosts = () => {
     axios
-      .get(`https://railway.bulletinboard.techtrain.dev/threads/${thread_id}/posts`)
+      .get(ENDPOINTS.posts(thread_id))
       .then((res) => {
         setPosts(res.data.posts);
       })
@@ -21,34 +24,20 @@ export default function PostList() {
       });
   };
 
-  //スレッドタイトルを表示
   useEffect(() => {
     fetchPosts();
-    axios
-      .get("https://railway.bulletinboard.techtrain.dev/threads")
-      .then((res) => {
-        const thread = res.data.find((t) => t.id === thread_id);
-        if (thread) {
-          setThreadTitle(thread.title);
-        }
-      })
-      .catch((err) => {
-        console.error("タイトル取得エラー:", err);
-      });
   }, [thread_id]);
 
-  // 投稿フォームの送信
+  // 投稿送信
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newPost.trim()) return;
 
     axios
-      .post(`https://railway.bulletinboard.techtrain.dev/threads/${thread_id}/posts`, {
-        post: newPost,
-      })
+      .post(ENDPOINTS.posts(thread_id), { post: newPost })
       .then(() => {
         setNewPost("");
-        fetchPosts(); // 投稿後に再取得して即反映
+        fetchPosts();
       })
       .catch((err) => {
         console.error("投稿エラー:", err);
@@ -57,15 +46,12 @@ export default function PostList() {
 
   return (
     <div className="post-list-page">
-      <header className="post-header">
       <header className="header">掲示板</header>
-        <Link to="/" className="back-link">← Topに戻る</Link>
-      </header>
+      <Link to="/" className="back-link">← Topに戻る</Link>
 
       <h2>{threadTitle || "投稿一覧"}</h2>
 
       <div className="post-container">
-        {/* 投稿一覧 */}
         <div className="post-list">
           {posts.map((post) => (
             <div key={post.id} className="post-card">
@@ -75,7 +61,6 @@ export default function PostList() {
           ))}
         </div>
 
-        {/* 投稿フォーム */}
         <form onSubmit={handleSubmit} className="post-form">
           <textarea
             value={newPost}
